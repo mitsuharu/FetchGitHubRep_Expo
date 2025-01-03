@@ -20,7 +20,6 @@ Yarn V4 を利用する
 nodeLinker: node-modules
 ```
 
-
 ファイル `.gitignore` に次を追加する
 
 ```.gitignore
@@ -34,3 +33,14 @@ nodeLinker: node-modules
 !.yarn/versions
 ```
 
+`package.json` に `eas-build-pre-install` を追加して、Yarn v4 に対応する。デフォルトは v1 なため。
+
+```json:package.json
+{
+  "scripts": {
+    "eas-build-pre-install": "corepack enable && yarn set version 4"
+  }
+}
+```
+
+https://docs.expo.dev/more/create-expo/#yarn-2-modern
