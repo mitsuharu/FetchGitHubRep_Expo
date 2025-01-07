@@ -3654,6 +3654,7 @@ __metadata:
     "@types/react": "npm:~18.3.12"
     "@types/react-redux": "npm:^7.1.34"
     "@types/react-test-renderer": "npm:^18.3.0"
+    dayjs: "npm:^1.11.13"
     eas-cli: "npm:^13.4.2"
     eslint: "npm:^8.57.0"
     eslint-config-expo: "npm:~8.0.1"
@@ -5303,6 +5304,13 @@ __metadata:
   version: 4.6.3
   resolution: "dateformat@npm:4.6.3"
   checksum: 10c0/e2023b905e8cfe2eb8444fb558562b524807a51cdfe712570f360f873271600b5c94aebffaf11efb285e2c072264a7cf243eadb68f3eba0f8cc85fb86cd25df6
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.13":
+  version: 1.11.13
+  resolution: "dayjs@npm:1.11.13"
+  checksum: 10c0/a3caf6ac8363c7dade9d1ee797848ddcf25c1ace68d9fe8678ecf8ba0675825430de5d793672ec87b24a69bf04a1544b176547b2539982275d5542a7955f35b7
   languageName: node
   linkType: hard
 
