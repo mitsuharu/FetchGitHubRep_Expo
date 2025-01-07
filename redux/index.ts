@@ -5,6 +5,7 @@ import { CounterReducer } from './modules/counter/slice'
 import { rootSaga } from './saga'
 
 const initializeStore = () => {
+  console.log(`initializeStore`)
   const sagaMiddleware = createSagaMiddleware({
     onError: (error: Error, errorInfo: any) => {
       console.error('sagaMiddleware', error, errorInfo)
