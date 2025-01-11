@@ -1,11 +1,7 @@
 import { all, fork } from 'redux-saga/effects'
+import { snackbarSaga } from './modules/snackbar/saga'
 
 export function* rootSaga() {
   console.log('rootSaga start')
-  // yield all([
-  //   fork(inAppBrowserSaga),
-  //   fork(printerSaga),
-  //   fork(nfcSaga),
-  //   fork(asciiArtSaga),
-  // ])
+  yield all([fork(snackbarSaga)])
 }

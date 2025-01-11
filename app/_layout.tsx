@@ -12,6 +12,8 @@ import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { store } from '@/redux'
 import { Provider as ReduxProvider } from 'react-redux'
+import Toast from 'react-native-toast-message'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -33,14 +35,19 @@ export default function RootLayout() {
   }
 
   return (
-    <ReduxProvider store={store}>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </ReduxProvider>
+    <SafeAreaProvider>
+      <ReduxProvider store={store}>
+        <ThemeProvider
+          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="auto" />
+          <Toast />
+        </ThemeProvider>
+      </ReduxProvider>
+    </SafeAreaProvider>
   )
 }

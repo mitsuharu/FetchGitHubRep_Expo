@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import dayjs from 'dayjs'
 
-export type ToastType = 'success' | 'error' | 'info'
+export type SnackbarType = 'success' | 'error' | 'info'
 
 export type SnackbarItem = {
   message: string
   createdAt: number
-  type: ToastType
+  type: SnackbarType
 }
 
 export type SnackbarState = {
@@ -25,7 +25,7 @@ const slice = createSlice({
       state,
       {
         payload: { message, type },
-      }: PayloadAction<{ message: string; type?: ToastType }>,
+      }: PayloadAction<{ message: string; type?: SnackbarType }>,
     ) {
       state.itemQueue = [
         ...state.itemQueue,
@@ -39,7 +39,11 @@ const slice = createSlice({
 
     dequeueSnackbar(
       state,
-      { payload: { createdAt } }: PayloadAction<{ createdAt: number }>,
+      {
+        payload: { createdAt },
+      }: PayloadAction<{
+        createdAt: number
+      }>,
     ) {
       state.itemQueue = state.itemQueue.filter(
         (item) => item.createdAt !== createdAt,
@@ -49,8 +53,18 @@ const slice = createSlice({
     clearSnackbar(state) {
       state.itemQueue = []
     },
+
+    _onHideSnackbar(
+      state,
+      payloadAction: PayloadAction<{ createdAt: number }>,
+    ) {},
   },
 })
 
-export const { enqueueSnackbar, dequeueSnackbar, clearSnackbar } = slice.actions
+export const {
+  enqueueSnackbar,
+  dequeueSnackbar,
+  clearSnackbar,
+  _onHideSnackbar,
+} = slice.actions
 export const snackbarReducer = slice.reducer
