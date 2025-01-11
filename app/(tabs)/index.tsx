@@ -6,6 +6,7 @@ import { ThemedView } from '@/components/ThemedView'
 import { Button } from '@/components/Button'
 import { useDispatch } from 'react-redux'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
+import { fetchRepositories } from '@/redux/modules/repository/slice'
 
 export default function HomeScreen() {
   const dispatch = useDispatch()
@@ -25,6 +26,7 @@ export default function HomeScreen() {
           text="aaaa"
           onPress={() => {
             dispatch(enqueueSnackbar({ message: 'test' }))
+            dispatch(fetchRepositories({ keyword: 'swift' }))
           }}
         />
         <ThemedText type="title">Welcome!</ThemedText>
