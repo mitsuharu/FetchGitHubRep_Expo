@@ -1,11 +1,16 @@
 import { Image, StyleSheet, Platform } from 'react-native'
-
 import { HelloWave } from '@/components/HelloWave'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
 import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
+import { Button } from '@/components/Button'
+import { useDispatch } from 'react-redux'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
+import { fetchRepositories } from '@/redux/modules/repository/slice'
 
 export default function HomeScreen() {
+  const dispatch = useDispatch()
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -17,6 +22,13 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
+        <Button
+          text="aaaa"
+          onPress={() => {
+            dispatch(enqueueSnackbar({ message: 'test' }))
+            dispatch(fetchRepositories({ keyword: 'swift' }))
+          }}
+        />
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
