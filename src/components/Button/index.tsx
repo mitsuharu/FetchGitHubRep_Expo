@@ -1,4 +1,4 @@
-import { styleType } from '@/components/utils/styles'
+import { styleType } from '@/utils/styles'
 import React, { ReactNode } from 'react'
 import {
   Pressable,
