@@ -3,7 +3,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import { snackbarReducer } from './modules/snackbar/slice'
 import { CounterReducer } from './modules/counter/slice'
 import { rootSaga } from './saga'
-import { RepositoryReducer } from './modules/repository/slice'
 
 const initializeStore = () => {
   console.log(`initializeStore`)
@@ -16,16 +15,10 @@ const initializeStore = () => {
   const store = configureStore({
     reducer: {
       counter: CounterReducer,
-      repository: RepositoryReducer,
       snackbar: snackbarReducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: {
-          ignoredPaths: ['payload.result'], // payload.result をチェック対象外にする
-          ignoredActions: ['REPOSITORY/fetchRepositoriesSucceeded'], // 特定のアクションを無視
-        },
-      }).concat(sagaMiddleware),
+      getDefaultMiddleware().concat(sagaMiddleware),
     devTools: true,
   })
 

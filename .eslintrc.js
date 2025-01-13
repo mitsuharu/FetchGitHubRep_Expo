@@ -16,5 +16,6 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-require-imports': 'off',
+    'import/no-unresolved': 'off',
   },
 }
