@@ -44,10 +44,6 @@ export default function RootLayout() {
           <Stack initialRouteName="(home)/index">
             <Stack.Screen name="(home)/index" options={{ title: 'Home' }} />
           </Stack>
-          {/* <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack> */}
           <StatusBar style="auto" />
           <Toast />
         </ThemeProvider>
