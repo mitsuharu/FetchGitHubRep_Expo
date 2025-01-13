@@ -57,7 +57,8 @@ const Container: React.FC<Props> = (props) => {
   return <Component {...props} {...{ url, isLoading, setIsLoading }} />
 }
 
-export { Container as Detail }
+// export { Container as Detail }
+export default Container
 
 const useStyles = makeStyles(useColorScheme, (_colorScheme) => ({
   container: styleType<ViewStyle>({

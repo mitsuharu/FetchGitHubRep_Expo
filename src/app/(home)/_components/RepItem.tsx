@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import React from 'react'
 import {
   Text,
@@ -59,6 +60,7 @@ const Container: React.FC<Props> = (props) => {
 }
 
 export { Container as RepItem }
+export default Container
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({

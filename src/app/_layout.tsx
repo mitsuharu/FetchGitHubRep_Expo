@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import {
   DarkTheme,
   DefaultTheme,
@@ -40,10 +41,13 @@ export default function RootLayout() {
         <ThemeProvider
           value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
         >
-          <Stack>
+          <Stack initialRouteName="(home)/index">
+            <Stack.Screen name="(home)/index" options={{ title: 'Home' }} />
+          </Stack>
+          {/* <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
-          </Stack>
+          </Stack> */}
           <StatusBar style="auto" />
           <Toast />
         </ThemeProvider>

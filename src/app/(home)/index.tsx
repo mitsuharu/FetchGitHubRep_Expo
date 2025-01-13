@@ -7,22 +7,24 @@ import {
   useColorScheme,
   View,
   ViewStyle,
+  Text,
+  TextInput,
 } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { useNavigation } from '@react-navigation/native'
-// import SearchBar from 'react-native-search-bar'
 import { Repository } from '@/api/github/Repository'
-import { RepItem } from './RepItem'
+import { RepItem } from './_components/RepItem'
 import { ItemSeparator } from '@/components/List/Separator'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
 import { makeStyles } from 'react-native-swag-styles'
-import { useSearchRepository } from './hooks/useSearchRepository'
+import { useSearchRepository } from './_hooks/useSearchRepository'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
 import { MainName } from '@/routes/main.constraint'
 import { MainParams } from '@/routes/main.params'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { COLOR } from '@/constants/COLOR'
+import { SearchBar, SearchBarProps } from '@rneui/themed'
 
 type ParamsProps = NativeStackNavigationProp<MainParams, 'Home'>
 
@@ -32,7 +34,7 @@ type ComponentProps = Props & {
   onPress: (repository: Repository) => void
   searchText: string
   onSearchButtonPress?: (text: string) => void
-  onChangeText?: (text: string) => void
+  onChangeText: (text: string) => void
   onEndReached: () => void
   isLoading: boolean
 }
@@ -46,7 +48,8 @@ const Component: React.FC<ComponentProps> = ({
   onEndReached,
   isLoading,
 }) => {
-  // const searchBarRef = useRef<SearchBar | null>(null)
+  const [searchBarText, setSearchBarText] = useState<string>('')
+  const searchBarRef = useRef<TextInput | null>(null)
   const styles = useStyles()
 
   const renderItem = useCallback<ListRenderItem<Repository>>(
@@ -59,24 +62,22 @@ const Component: React.FC<ComponentProps> = ({
   }, [])
 
   const ListHeaderComponent = useMemo(() => {
-    return null
-  }, [])
-
-  // const ListHeaderComponent = useMemo(() => {
-  //   return (
-  //     <SearchBar
-  //       placeholder="Search"
-  //       text={searchText}
-  //       onSearchButtonPress={(text) => {
-  //         searchBarRef.current?.unFocus()
-  //         onSearchButtonPress?.(text)
-  //       }}
-  //       onChangeText={onChangeText}
-  //       style={styles.searchBar}
-  //       ref={searchBarRef}
-  //     />
-  //   )
-  // }, [onChangeText, onSearchButtonPress, searchText, styles.searchBar])
+    return (
+      <SearchBar
+        placeholder="Search"
+        value={searchBarText}
+        onChangeText={setSearchBarText}
+        onBlur={(event) => {
+          onSearchButtonPress?.(event.nativeEvent.text)
+        }}
+        containerStyle={styles.searchBar}
+        lightTheme={true}
+        round={true}
+        showCancel={true}
+        ref={searchBarRef}
+      />
+    )
+  }, [onSearchButtonPress, searchBarText, styles.searchBar])
 
   const ListFooterComponent = useMemo(() => {
     return (
@@ -115,6 +116,7 @@ const Container: React.FC<Props> = (props) => {
   )
 
   const onSearchButtonPress = useCallback((text: string) => {
+    console.log(`onSearchButtonPress text:${text}`)
     setKeyword(text)
   }, [])
 
@@ -135,6 +137,7 @@ const Container: React.FC<Props> = (props) => {
       items={items}
       onPress={onPress}
       searchText={keyword}
+      onChangeText={setKeyword}
       onSearchButtonPress={onSearchButtonPress}
       onEndReached={onEndReached}
       isLoading={isLoading}
@@ -142,7 +145,8 @@ const Container: React.FC<Props> = (props) => {
   )
 }
 
-export { Container as Home }
+// export { Container as Home }
+export default Container
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
@@ -151,7 +155,6 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   }),
   searchBar: styleType<ViewStyle>({
     width: '100%',
-    height: 60,
   }),
   footer: styleType<ViewStyle>({
     height: 44,
