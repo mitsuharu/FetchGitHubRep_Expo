@@ -10,7 +10,6 @@ import {
   TextInput,
 } from 'react-native'
 import { styleType } from '@/utils/styles'
-import { useNavigation } from '@react-navigation/native'
 import { Repository } from '@/api/github/Repository'
 import { RepItem } from './_components/RepItem'
 import { ItemSeparator } from '@/components/List/Separator'
@@ -19,13 +18,9 @@ import { useDispatch } from 'react-redux'
 import { makeStyles } from 'react-native-swag-styles'
 import { useSearchRepository } from './_hooks/useSearchRepository'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
-import { MainName } from '@/routes/main.constraint'
-import { MainParams } from '@/routes/main.params'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { COLOR } from '@/constants/COLOR'
 import { SearchBar } from '@rneui/themed'
-
-type ParamsProps = NativeStackNavigationProp<MainParams, 'home'>
+import { useRouter } from 'expo-router'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -97,21 +92,25 @@ const Component: React.FC<ComponentProps> = ({
 }
 
 const Container: React.FC<Props> = (props) => {
-  const navigation = useNavigation<ParamsProps>()
+  const router = useRouter()
   const dispatch = useDispatch()
   const [keyword, setKeyword] = useState<string>('')
-
   const { items, loadMore, isLoading, error } = useSearchRepository(keyword)
 
   const onPress = useCallback(
     (repository: Repository) => {
-      navigation.navigate(MainName.Detail, { repository: repository })
+      const json = JSON.stringify(repository)
+      router.push({
+        pathname: `/detail`,
+        params: {
+          repositoryJson: json,
+        },
+      })
     },
-    [navigation],
+    [router],
   )
 
   const onSearchButtonPress = useCallback((text: string) => {
-    console.log(`onSearchButtonPress text:${text}`)
     setKeyword(text)
   }, [])
 

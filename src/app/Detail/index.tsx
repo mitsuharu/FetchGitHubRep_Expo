@@ -1,14 +1,13 @@
 import React, { useLayoutEffect, useMemo, useState } from 'react'
 import { useColorScheme, View, ViewStyle } from 'react-native'
 import { WebView } from 'react-native-webview'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { MainParams } from '@/routes/main.params'
+import { useNavigation } from '@react-navigation/native'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { ShareButton } from '@/components/Button/ShareButton'
 import { makeStyles } from 'react-native-swag-styles'
 import { styleType } from '@/utils/styles'
-
-type ParamsProps = RouteProp<MainParams, 'Detail'>
+import { useSearchParams } from 'expo-router/build/hooks'
+import { Repository } from '@/api/github/Repository'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -39,8 +38,9 @@ const Component: React.FC<ComponentProps> = ({
 
 const Container: React.FC<Props> = (props) => {
   const navigation = useNavigation()
-  const route = useRoute<ParamsProps>()
-  const { repository } = route.params
+  const searchParams = useSearchParams()
+  const repositoryJson = searchParams.get('repositoryJson')!
+  const repository = JSON.parse(repositoryJson) as Repository
 
   const url = useMemo(() => repository.url, [repository])
   const [isLoading, setIsLoading] = useState<boolean>(false)
