@@ -7,7 +7,6 @@ import {
   useColorScheme,
   View,
   ViewStyle,
-  Text,
   TextInput,
 } from 'react-native'
 import { styleType } from '@/utils/styles'
@@ -24,17 +23,15 @@ import { MainName } from '@/routes/main.constraint'
 import { MainParams } from '@/routes/main.params'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { COLOR } from '@/constants/COLOR'
-import { SearchBar, SearchBarProps } from '@rneui/themed'
+import { SearchBar } from '@rneui/themed'
 
-type ParamsProps = NativeStackNavigationProp<MainParams, 'Home'>
+type ParamsProps = NativeStackNavigationProp<MainParams, 'home'>
 
 type Props = {}
 type ComponentProps = Props & {
   items: Repository[]
   onPress: (repository: Repository) => void
-  searchText: string
   onSearchButtonPress?: (text: string) => void
-  onChangeText: (text: string) => void
   onEndReached: () => void
   isLoading: boolean
 }
@@ -42,9 +39,7 @@ type ComponentProps = Props & {
 const Component: React.FC<ComponentProps> = ({
   items,
   onPress,
-  searchText,
   onSearchButtonPress,
-  onChangeText,
   onEndReached,
   isLoading,
 }) => {
@@ -136,8 +131,6 @@ const Container: React.FC<Props> = (props) => {
       {...props}
       items={items}
       onPress={onPress}
-      searchText={keyword}
-      onChangeText={setKeyword}
       onSearchButtonPress={onSearchButtonPress}
       onEndReached={onEndReached}
       isLoading={isLoading}

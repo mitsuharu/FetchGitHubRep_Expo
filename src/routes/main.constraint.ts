@@ -1,6 +1,6 @@
 export const MainName = {
-  Home: 'Home',
-  Detail: 'Detail',
+  Home: 'home',
+  Detail: 'detail',
 } as const
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
